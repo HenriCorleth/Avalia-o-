@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mostra { display: block; }
+        .esconde { display: none; }
+        li { cursor: pointer; }
+        button { margin-bottom: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <button id="botaoAlternarTodos" onclick="alternarTodos()">Esconder tudo</button>
+
+    <ol>
+        <li onclick="mudaVisibilidade('listaTeste1')">
+            prato principal
+            <ul id="listaTeste1" class="mostra">
+                <li>bife</li>
+                <li>feijao</li>
+                <li>arroz</li>
+            </ul>
+        </li>
+        <li onclick="mudaVisibilidade('listaTeste2')">
+            sobremesa
+            <ul id="listaTeste2" class="mostra">
+                <li>pave</li>
+                <li>gelatina</li>
+                <li>pudim</li>
+            </ul>
+        </li>
+    </ol>
+
+    <script>
+        function pegaListas() {
+            return document.querySelectorAll("ol > li > ul");
+        }
+
+        function mudaVisibilidade(id) {
+            const elementoHTML = document.getElementById(id);
+            if (elementoHTML.className == "mostra") {
+                elementoHTML.className = "esconde";
+            } else {
+                elementoHTML.className = "mostra";
+            }
+            
+            atualizaBotao();
+        }
+
+        function alternarTodos() {
+            const botao = document.getElementById("botaoAlternarTodos");
+            const listas = pegaListas();
+
+            if (botao.textContent == "Esconder tudo") {
+                listas.forEach(lista => lista.className = "esconde");
+            } else {
+                listas.forEach(lista => lista.className = "mostra");
+            }
+            atualizaBotao();
+        }
+
+        function atualizaBotao() {
+            const botao = document.getElementById("botaoAlternarTodos");
+            const listas = Array.from(pegaListas());
+
+            const todasVisiveis = listas.every(lista => lista.className == "mostra");
+            const todasEscondidas = listas.every(lista => lista.className == "esconde");
+
+            if (todasVisiveis) {
+                botao.textContent = "Esconder tudo";
+            } else if (todasEscondidas) {
+                botao.textContent = "Exibir tudo";
+            }
+           
+        }
+    </script>
+</body>
+</html>
