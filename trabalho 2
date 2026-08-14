@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manipulação de DOM e CSS com JS</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background: #f4f6f8;
+    color: #222;
+    line-height: 1.5;
+  }
+  section {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  h2 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: #444;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+  }
+  h1#titulo {
+    text-align: center;
+    color: #333;
+  }
+  button {
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  button:hover { background: #222; }
+  input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  ul { padding-left: 20px; }
+  img#foto {
+    display: block;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  .caixa {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #9ec5fe;
+    margin: 4px;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h1 id="titulo">Título Original</h1>
+
+<section>
+  <h2>2. Trocar a cor de um parágrafo</h2>
+  <p class="destaque">Este parágrafo terá a cor do texto alterada para azul.</p>
+</section>
+
+<section>
+  <h2>3. Alterar múltiplos elementos (lista)</h2>
+  <ul>
+    <li class="item">Item original 1</li>
+    <li class="item">Item original 2</li>
+    <li class="item">Item original 3</li>
+  </ul>
+</section>
+
+<section>
+  <h2>4. Mostrar texto oculto</h2>
+  <p id="oculto" style="display:none;">Este texto estava escondido e agora apareceu!</p>
+  <button id="btnMostrar">Mostrar texto</button>
+</section>
+
+<section>
+  <h2>5. Atualizar texto com input</h2>
+  <input type="text" id="entrada" placeholder="Digite algo...">
+  <button id="btnAtualizar">Atualizar</button>
+  <p id="resultado">O resultado aparecerá aqui.</p>
+</section>
+
+<section>
+  <h2>6. Contar elementos</h2>
+  <div class="caixa"></div>
+  <div class="caixa"></div>
+  <div class="caixa"></div>
+  <div class="caixa"></div>
+  <div class="caixa"></div>
+  <p>Abra o console do navegador (F12) para ver a contagem de caixas.</p>
+</section>
+
+<section>
+  <h2>7. Mudar imagem</h2>
+  <img id="foto" src="https://placehold.co/300x150?text=Imagem+1" alt="Imagem de exemplo">
+  <br>
+  <button id="btnTrocarImagem">Trocar imagem</button>
+</section>
+
+<section>
+  <h2>8. Alterar estilo com classe</h2>
+  <button class="botao-estiloso">Estilize-me!</button>
+</section>
+
+<section>
+  <h2>9. Selecionar com ID e mudar texto</h2>
+  <p id="mensagem">Mensagem original.</p>
+</section>
+
+<section>
+  <h2>10. Iterar sobre vários elementos</h2>
+  <p class="comentario">Muito bom esse conteúdo!</p>
+  <p class="comentario">Vou aplicar isso no meu projeto.</p>
+  <p class="comentario">Ótima explicação, obrigado!</p>
+</section>
+
+<script>
+  const titulo = document.getElementById('titulo');
+  titulo.textContent = "Olá, Mundo!";
+
+  const destaque = document.querySelector('.destaque');
+  destaque.style.color = "blue";
+
+  const itens = document.querySelectorAll('.item');
+  itens.forEach(item => {
+    item.textContent = "Item modificado";
+  });
+
+  const btnMostrar = document.getElementById('btnMostrar');
+  btnMostrar.addEventListener('click', () => {
+    const oculto = document.getElementById('oculto');
+    oculto.style.display = "block";
+  });
+
+  const btnAtualizar = document.getElementById('btnAtualizar');
+  btnAtualizar.addEventListener('click', () => {
+    const entrada = document.getElementById('entrada');
+    const resultado = document.getElementById('resultado');
+    resultado.textContent = entrada.value;
+  });
+
+  const caixas = document.querySelectorAll('.caixa');
+  console.log("Quantidade de caixas:", caixas.length);
+
+  const btnTrocarImagem = document.getElementById('btnTrocarImagem');
+  let imagemAlternada = false;
+  btnTrocarImagem.addEventListener('click', () => {
+    const foto = document.getElementById('foto');
+    imagemAlternada = !imagemAlternada;
+    foto.src = imagemAlternada
+      ? "https://static.wikia.nocookie.net/irmaodojorel/images/5/56/Pato_Gesonel.png/revision/latest?cb=20250715140203&path-prefix=pt-br"
+      : "https://irmaodojorel.com.br/wp-content/uploads/2023/10/GRUPO_IDJ_JUJU_LARA_02.webp";
+  });
+
+  const botaoEstiloso = document.querySelector('.botao-estiloso');
+  botaoEstiloso.style.backgroundColor = "#ff6b6b";
+  botaoEstiloso.style.borderRadius = "20px";
+  botaoEstiloso.style.padding = "10px 24px";
+  botaoEstiloso.style.fontWeight = "bold";
+  botaoEstiloso.style.boxShadow = "0 2px 6px rgba(255,107,107,0.5)";
+
+  const mensagem = document.getElementById('mensagem');
+  mensagem.textContent = "Texto alterado via getElementById!";
+
+  const comentarios = document.querySelectorAll('.comentario');
+  comentarios.forEach(comentario => {
+    comentario.textContent = "Comentário: " + comentario.textContent;
+  });
+</script>
+
+</body>
+</html>
