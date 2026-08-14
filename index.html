@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head> 
+
+<body>
+    <h1>Calculadora</h1>
+    <input type="number" id="numero1"
+     placeholder="digite um numero">
+    <input type="number" id="numero2"
+     placeholder="digite outro numero">
+    <br>
+    <button onclick="somar('+')">+</button>
+    <button onclick="somar('-')">-</button>
+    <button onclick="somar('*')">x</button>
+    <button onclick="somar('/')">/</button>
+    <br>
+    <p id="resultado">Resultado:</p>
+    <script>
+        
+        function somar(operacao) {
+            let numero1 = Number(document.getElementById("numero1").value);
+            let numero2 = Number(document.getElementById("numero2").value);
+            let resultado;
+
+            if (operacao === '+') {
+                resultado = numero1 + numero2;
+            } else if (operacao === '-') {
+                resultado = numero1 - numero2;
+            } else if (operacao === '*') {
+                resultado = numero1 * numero2;
+            } else if (operacao === '/') {
+                if (numero2 !== 0) {
+                    resultado = numero1 / numero2;
+                } else {
+                    alert("Divisão por zero não é permitida.");
+                    return;
+                }
+            }
+
+            document.getElementById("resultado").innerText = operacao + " Resultado: " + resultado;
+        } </script>
+</body>
+</html>
